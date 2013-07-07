@@ -6,7 +6,7 @@ from view.view import View
 
 def main():
     app = QApplication(sys.argv)
-    app.setApplicationName("Test")
+    app.setApplicationName("Whammy Bammy!")
     view = View()
     presenter = Presenter(view)
     presenter.initialize()

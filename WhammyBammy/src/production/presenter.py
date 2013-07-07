@@ -2,7 +2,6 @@ from preproduction.screenplay import Screenplay
 
 class Presenter(object):
 
-
     def __init__(self, view):
         self.model = Screenplay.construct()
         self.view = view
