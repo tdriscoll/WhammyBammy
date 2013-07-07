@@ -13,8 +13,8 @@ class ScreenwriterTest(unittest.TestCase):
         sw = Screenwriter()
         protagonist = Casting.create_protagonist(ORIGIN)
         expected = Scene(scene_number = 1)
-        expected.stage_directions.append(StageDirection.walk_left(protagonist, start = 0, end = 20000))
-        expected.stage_directions.append(StageDirection.walk_left(protagonist, start = 30000, end = 40000))
+        expected.stage_directions.append(protagonist.zoom_in(duration = 5000))
+        expected.stage_directions.append(protagonist.walk_left(duration= 1000))
         actual = sw.build_scene(scene_number = 1)
         self.assertEquals(expected, actual)
         

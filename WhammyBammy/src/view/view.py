@@ -38,6 +38,10 @@ class View(QtGui.QGraphicsView):
         a.setTimeLine(tl)
         for movement in stage_direction.movements:
             a.setPosAt(movement.step, QtCore.QPointF(movement.coordinate.x, movement.coordinate.y))
+            if movement.rotation is not None:
+                a.setRotationAt(movement.step, movement.rotation)
+            if movement.xscale is not None:
+                a.setScaleAt(movement.step, movement.xscale, movement.yscale)
         tl.start()
         self.add_reference(tl, a)
     

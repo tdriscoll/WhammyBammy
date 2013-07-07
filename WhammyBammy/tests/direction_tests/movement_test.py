@@ -9,7 +9,9 @@ class MovementTest(unittest.TestCase):
     def test_construct_movement(self):
         sd = Movement(step = 0.5, 
                     coordinate = Coordinate(0, 0, 0), 
-                    rotation = 350
+                    rotation = 350, 
+                    xscale = 0.5,
+                    yscale = 0.5,
                     )
 
 
