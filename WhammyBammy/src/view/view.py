@@ -44,7 +44,7 @@ class View(QGraphicsView):
         self.add_reference(tl, a)
     
     def add_reference(self, *a):
-        """ Some PyQT stuff requires you to hold onto it otherwise it gets GCed """
+        """ Some PyQT stuff requires you to hold onto it otherwise it gets GC'ed """
         self.references.extend(a)
     
     def add_item(self, character):

@@ -40,9 +40,9 @@ class CharacterTest(unittest.TestCase):
     def test_can_fly_in(self):
         actual = self.character.zoom_in(duration=1000)
         expected = StageDirection(start=0, end=1000, character = self.character, 
-                                  movements=[Movement(step=0, rotation=0, xscale = -0.1, yscale= 0.1, coordinate = ORIGIN),
-                                             Movement(step=0.3, rotation=30, xscale = -0.3, yscale= 0.3, coordinate = ORIGIN),
-                                             Movement(step=1, rotation=0, xscale = -0.7, yscale= 0.7, coordinate = ORIGIN),
+                                  movements=[Movement(step=0, rotation=0, xscale = 0.1, yscale= 0.1, coordinate = ORIGIN),
+                                             Movement(step=0.3, rotation=30, xscale = 0.3, yscale= 0.3, coordinate = ORIGIN),
+                                             Movement(step=1, rotation=0, xscale = 1, yscale= 1, coordinate = ORIGIN),
                                              ],
                       )
         with DictEqualityDebug():

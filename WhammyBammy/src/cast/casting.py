@@ -4,8 +4,8 @@ class Casting(object):
     
     @classmethod
     def create_protagonist(cls, location):
-        return Character(name = "Mothra", location=location, image = "protagonist.jpg")
+        return Character(name = "Mothra", location=location, image = "protagonist.png")
 
     @classmethod
     def create_antagonist(cls, location):
-        return Character(name = "Godzilla", location=location, image = "antagonist.jpg")
+        return Character(name = "Godzilla", location=location, image = "antagonist.png")

@@ -9,7 +9,7 @@ class CastingTest(unittest.TestCase):
 
     def test_can_create_protagonist(self):
         actual = Casting.create_protagonist(ORIGIN)
-        expected = Character(name = "Mothra", location= ORIGIN, image = "protagonist.jpg")
+        expected = Character(name = "Mothra", location= ORIGIN, image = "protagonist.png")
         self.assertEqual(expected, actual)
         self.assertEqual(expected.image, actual.image)
 

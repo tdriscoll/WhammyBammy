@@ -16,6 +16,12 @@ class Character(DomainObject):
         #orientation ()
         #direction facting
     
+    def about_face(self):
+        pass #TODO: invert sign on x scale
+    
+    def speak(self, speaking_line):
+        pass #TODO: the character on the stage direction should be the text
+    
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.name == other.name
     
@@ -31,9 +37,9 @@ class Character(DomainObject):
         return self._directions_from_movements(movements, duration)
     
     def zoom_in(self, duration):
-        movements = [Movement(step=0, rotation=0, xscale = -0.1, yscale = 0.1, coordinate=self.current_location),
-                     Movement(step=0.3, rotation=30, xscale = -0.3, yscale = 0.3, coordinate=self.current_location),
-                     Movement(step=1, rotation=0, xscale = -0.7, yscale = 0.7, coordinate=self.current_location),
+        movements = [Movement(step=0, rotation=0, xscale = 0.1, yscale = 0.1, coordinate=self.current_location),
+                     Movement(step=0.3, rotation=30, xscale = 0.3, yscale = 0.3, coordinate=self.current_location),
+                     Movement(step=1, rotation=0, xscale = 1, yscale = 1, coordinate=self.current_location),
                     ]
         return self._directions_from_movements(movements, duration)
 
