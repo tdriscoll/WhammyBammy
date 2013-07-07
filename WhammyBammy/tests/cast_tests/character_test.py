@@ -24,6 +24,14 @@ class CharacterTest(unittest.TestCase):
                                              Movement(step=1, coordinate=Coordinate(x=-500)), ],
                                   )
         self.assertEquals(expected, actual)
+
+    def test_can_walking_right(self):
+        actual = self.character.walk_right(duration=1000)
+        expected = StageDirection(start=0, end=1000, character = self.character,
+                                  movements=[Movement(step=0, coordinate=ORIGIN),
+                                             Movement(step=1, coordinate=Coordinate(x=500)), ],
+                                  )
+        self.assertEquals(expected, actual)
         
         
     def test_can_walk_even_father_left(self):

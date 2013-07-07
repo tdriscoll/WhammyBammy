@@ -53,7 +53,9 @@ class View(QGraphicsView):
             return item
         pmap = QPixmap(join("..", "images", character.image))
         item = QGraphicsPixmapItem(pmap)
-        item.setZValue(1)
+        item.setZValue(character.starting_location.z)
+        item.setX(character.starting_location.x)
+        item.setY(character.starting_location.z)
         self.qtscene.addItem(item)
         self.add_reference(pmap)
         self.items[character] = item

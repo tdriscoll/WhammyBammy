@@ -10,6 +10,7 @@ class Character(DomainObject):
 
     def __init__(self, name, location, image):
         self.name = name
+        self.starting_location = location
         self.current_location = location
         self.current_time = 0
         self.image = image
@@ -29,11 +30,18 @@ class Character(DomainObject):
         return hash(self.name)
     
     def idle(self, duration):
+        #TODO: override for protagonist to bobble up and down (using function)
         self.current_time += duration
     
     def walk_left(self, duration):
+        return self.walk_to(duration, self.current_location - Coordinate(x=500))
+    
+    def walk_right(self, duration):
+        return self.walk_to(duration, self.current_location + Coordinate(x=500))
+    
+    def walk_to(self, duration, end_coordinate):
         movements = [Movement(step=0, coordinate=self.current_location),
-                     Movement(step=1, coordinate=self.current_location - Coordinate(x=500)) ]
+                     Movement(step=1, coordinate=end_coordinate) ]
         return self._directions_from_movements(movements, duration)
     
     def zoom_in(self, duration):
