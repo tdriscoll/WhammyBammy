@@ -13,6 +13,13 @@ class CastingTest(unittest.TestCase):
         self.assertEqual(expected, actual)
         self.assertEqual(expected.image, actual.image)
 
+    def test_can_create_antagonist(self):
+        actual = Casting.create_antagonist(ORIGIN)
+        expected = Character(name = "Godzilla", location= ORIGIN, image = "antagonist.png")
+        self.assertEqual(expected, actual)
+        self.assertEqual(expected.image, actual.image)
+
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()

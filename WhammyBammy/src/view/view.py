@@ -1,6 +1,5 @@
-from PyQt4.QtGui import QGraphicsView, QPixmap, QGraphicsPixmapItem, QMainWindow, QActionGroup, QGraphicsScene, \
-                        QDesktopWidget, QMatrix, QAction, QIcon, qApp, QGraphicsSimpleTextItem, QGraphicsItemAnimation
-from PyQt4.QtCore import Qt, QTimer, QRectF, QTimeLine, QPointF
+from PyQt4.QtGui import QGraphicsView, QPixmap, QGraphicsPixmapItem, QGraphicsScene, QGraphicsSimpleTextItem, QGraphicsItemAnimation, qApp, QBrush, QColor, QFont
+from PyQt4.QtCore import QTimer, QRectF, QTimeLine, QPointF, Qt
 from os.path import join
 from functools import partial 
 
@@ -8,22 +7,35 @@ class Instruction(object): pass
     
 class View(QGraphicsView):
     
-    # change the scene =  on change, renger the next events 
-    
     def __init__(self):
         QGraphicsView.__init__(self)
         self.resize(1024, 768) 
         self.qtscene = None
         self.references = []
         self.items = {}
+        self.timelines = []
+        self.max_time = 0
         
-    def show_scene(self, scene):
+    def init_scene(self, scene):
+        #TODO: background, sound
         self.references = []
         self.qtscene = QGraphicsScene(self)
         self.qtscene.setSceneRect(QRectF(0, 0, 1000, 750))
+        brush = QBrush(QColor(80,90,130))
+        self.qtscene.setBackgroundBrush(brush)
+        
         self.setScene(self.qtscene)
-        for stage_direction in scene.stage_directions:
+        
+    def load_directions(self, stage_directions):
+        self.max_time = 0
+        for character, item in self.items.items():
+            if character.text:
+                item.hide() 
+        for stage_direction in stage_directions:
             self.schedule_stage_direction(stage_direction)
+            self.max_time = max(self.max_time, stage_direction.end)
+        QTimer.singleShot(self.max_time, self.on_directions_finished)
+        
     
     def schedule_stage_direction(self, stage_direction):
         QTimer.singleShot(stage_direction.start, partial(self.render_stage_direction, stage_direction))
@@ -41,7 +53,8 @@ class View(QGraphicsView):
             if movement.xscale is not None:
                 a.setScaleAt(movement.step, movement.xscale, movement.yscale)
         tl.start()
-        self.add_reference(tl, a)
+        self.timelines.append(tl)
+        self.add_reference(a)
     
     def add_reference(self, *a):
         """ Some PyQT stuff requires you to hold onto it otherwise it gets GC'ed """
@@ -51,13 +64,23 @@ class View(QGraphicsView):
         item = self.items.get(character)
         if item:
             return item
-        pmap = QPixmap(join("..", "images", character.image))
-        item = QGraphicsPixmapItem(pmap)
-        item.setZValue(character.starting_location.z)
-        item.setX(character.starting_location.x)
-        item.setY(character.starting_location.z)
+        if character.text:
+            item =  QGraphicsSimpleTextItem(character.text)
+            item.setBrush(QBrush(QColor(199,0,3)))
+            item.setFont(QFont("Times", 30, QFont.Bold)) 
+        else:
+            pmap = QPixmap(join("..", "images", character.image))
+            item = QGraphicsPixmapItem(pmap)
+            item.show()
+            self.add_reference(pmap)
+        item.setX(-1000) #Do not want it on the screen, 
+        
         self.qtscene.addItem(item)
-        self.add_reference(pmap)
         self.items[character] = item
         return item
+    
+    def keyPressEvent(self, ev):
+        if ev.key() == Qt.Key_Escape:
+            qApp.quit()
+        self.on_key_event(ev.key())
         

@@ -14,4 +14,4 @@ class Coordinate(DomainObject):
         return Coordinate(self.x - other.x, self.y - other.y, self.z - other.z)
         
 ORIGIN = Coordinate(0, 0, 0)
-STAGE_LEFT = Coordinate(1000, 0, 0)
+STAGE_LEFT = Coordinate(2000, 0, 0)

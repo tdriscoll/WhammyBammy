@@ -1,7 +1,4 @@
 import unittest
-from common.coordinate import ORIGIN
-from cast.casting import Casting
-from direction.stage_direction import StageDirection
 from preproduction.screenwriter import Screenwriter
 from preproduction.scene import Scene
 
@@ -11,10 +8,7 @@ class ScreenwriterTest(unittest.TestCase):
 
     def test_building_scene1(self):
         sw = Screenwriter()
-        protagonist = Casting.create_protagonist(ORIGIN)
         expected = Scene(scene_number = 1)
-        expected.stage_directions.append(protagonist.zoom_in(duration = 5000))
-        expected.stage_directions.append(protagonist.walk_left(duration= 1000))
         actual = sw.build_scene(scene_number = 1)
         self.assertEquals(expected, actual)
         
