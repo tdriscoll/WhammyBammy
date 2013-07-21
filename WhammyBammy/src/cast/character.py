@@ -19,9 +19,13 @@ class Character(DomainObject):
         # direction facting
     
     def about_face(self):
-        pass  # TODO: invert sign on x scale
+        movements = [Movement(step=0, xscale=-1, yscale=1, coordinate=self.current_location),
+                     Movement(step=1, xscale=-1, yscale=1, coordinate=self.current_location + Coordinate(x=500)),
+                    ]
+        return self._directions_from_movements(movements, duration=1)
     
     def speak(self, speaking_line):
+        #TODO: this should not be a character.  multiple places in view treat text differently
         self.current_line_number+= 1
         y = max(self.current_location.y - 15, 0)
         x = 100 if self.current_location.x < 300 else 400

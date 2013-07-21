@@ -19,9 +19,13 @@ class Screenwriter(object):
         self.antagonist.current_time = 0
     
     def build_scene(self, scene_number):
-        if scene_number != 1:
-            return
-        sc = Scene(scene_number = scene_number)
+        if scene_number == 1:
+            return self.build_scene1()
+        if scene_number == 2:
+            return self.build_scene2()
+    
+    def build_scene1(self):
+        sc = Scene(scene_number = 1)
         
         sc.stage_directions.append(self.protagonist.zoom_in(duration = 5000))
         sc.stage_directions.append(self.protagonist.speak("La te da te da."))
@@ -38,5 +42,22 @@ class Screenwriter(object):
         sc.stage_directions.append(self.wait_for_audience())
         
         sc.stage_directions.append(self.protagonist.speak("AHHHHhhhH!"))
+        sc.stage_directions.append(self.wait_for_audience())
+        
+        sc.stage_directions.append(self.protagonist.about_face())
+        sc.stage_directions.append(self.protagonist.walk_right(speed=1, distance =  1000))
+
+        self.antagonist.idle(duration=100)
+        sc.stage_directions.append(self.antagonist.walk_right(speed= 3, distance = 1500))
         
         return sc
+    
+    def build_scene2(self):
+        protagonist = Casting.create_protagonist(Coordinate(-500, 50, 0))
+
+        sc = Scene(scene_number = 2)
+        sc.stage_directions.append(protagonist.walk_right(speed=1, distance = 1000))
+        sc.stage_directions.append(self.protagonist.speak("Ahhhhhhhhhhhhhhh!!!"))
+        sc.stage_directions.append(self.wait_for_audience())
+        return sc
+        

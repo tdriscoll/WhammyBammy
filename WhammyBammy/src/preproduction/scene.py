@@ -12,17 +12,23 @@ class Scene(DomainObject):
             return False
         return self.scene_number == other.scene_number
     
+    @property
+    def is_finished(self):
+        return not bool(self.batches)
+    
     def next(self):
-        return self.batches.next()
+        return self.batches.pop(0)
     
     @LazyProperty
     def batches(self):
+        batches = []
         batch = []
         for stage_direction in self.stage_directions:
             if not stage_direction:
-                yield batch
+                batches.append(batch)
                 batch = []
                 continue
             batch.append(stage_direction)
         if batch:
-            yield batch
+            batches.append(batch)
+        return batches

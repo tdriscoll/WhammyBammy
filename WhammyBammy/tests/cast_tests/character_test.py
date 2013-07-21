@@ -95,7 +95,13 @@ class CharacterTest(unittest.TestCase):
         self.assertEquals("Test Me- Line 2", actual.character.name)
         
         
-        
+    def test_can_turn_around(self):
+        actual = self.character.about_face()
+        expected = StageDirection(start=0, end=1, character = self.character,
+                                  movements=[Movement(step=0, coordinate=ORIGIN, xscale=-1, yscale=1),
+                                             Movement(step=1, coordinate=ORIGIN, xscale=-1, yscale=1), ]
+                                  )
+        self.assertEquals(expected,actual)
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
