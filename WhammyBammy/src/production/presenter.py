@@ -1,4 +1,5 @@
 from preproduction.screenplay import Screenplay
+from preproduction.screenwriter import NoMoreScenesException
 
 class Presenter(object):
 
@@ -18,7 +19,11 @@ class Presenter(object):
         self.load_from_model()
         
     def load_from_model(self):
-        scene = self.model.get_new_scene()
+        try:
+            scene = self.model.get_new_scene()
+        except NoMoreScenesException:
+            self.view.quit()
+            return
         if scene:
             self.view.init_scene(self.model.current_scene)
         

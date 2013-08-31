@@ -99,7 +99,7 @@ class CharacterTest(unittest.TestCase):
         actual = self.character.about_face()
         expected = StageDirection(start=0, end=1, character = self.character,
                                   movements=[Movement(step=0, coordinate=ORIGIN, xscale=-1, yscale=1),
-                                             Movement(step=1, coordinate=ORIGIN, xscale=-1, yscale=1), ]
+                                             Movement(step=1, coordinate=Coordinate(x=500), xscale=-1, yscale=1), ]
                                   )
         self.assertEquals(expected,actual)
 

@@ -3,8 +3,6 @@ import sys
 from production.presenter import Presenter
 from view.view import View
 
-#TODO: set backround color
-
 def main():
     app = QApplication(sys.argv)
     app.setApplicationName("Whammy Bammy!")

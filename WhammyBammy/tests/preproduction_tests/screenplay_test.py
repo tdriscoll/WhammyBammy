@@ -11,7 +11,10 @@ class ScreenplayTest(unittest.TestCase):
 
     def setUp(self):
         self.scene1 = Screenwriter().build_scene(1)
+        self.scene1.next()
         self.sp = Screenplay()
+        self.sp.get_new_scene()
+        self.sp.get_new_directions()
     
     def test_can_construct_starting_at_scene1(self):
         self.assertEqual(1, self.sp.current_scene.scene_number)
@@ -22,6 +25,7 @@ class ScreenplayTest(unittest.TestCase):
         self.assertEquals(self.sp.directions_finished, False)
 
     def test_get_next_directions_on_key_press(self):
+        
         self.sp.directions_finished = True
         self.assertEquals(None, self.sp.get_new_scene())
         actual = self.sp.get_new_directions()

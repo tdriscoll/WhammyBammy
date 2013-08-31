@@ -19,6 +19,7 @@ class View(QGraphicsView):
     def init_scene(self, scene):
         #TODO: background, sound
         self.references = []
+        self.items = {}
         self.qtscene = QGraphicsScene(self)
         self.qtscene.setSceneRect(QRectF(0, 0, 1000, 750))
         brush = QBrush(QColor(80,90,130))
@@ -81,6 +82,9 @@ class View(QGraphicsView):
     
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Escape:
-            qApp.quit()
+            self.quit()
         self.on_key_event(ev.key())
+        
+    def quit(self):
+        qApp.quit() 
         

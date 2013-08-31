@@ -1,26 +1,26 @@
 import unittest
-from preproduction.screenwriter import Screenwriter
-from preproduction.scene import Scene
-
+from preproduction.screenwriter import Screenwriter, NoMoreScenesException
 
 class ScreenwriterTest(unittest.TestCase):
+    
+    def setUp(self):
+        self.sw = Screenwriter()
+        self.sw.scene_package_loc = "test_framework.scenes"
+    
+    def test_building_scene1_returns_correct_scene_number(self):
+        scene = self.sw.build_scene(1)
+        self.assertEquals(1, scene.scene_number)
 
-
-    def test_building_scenes_with_directions_until_end(self):
-        sw = Screenwriter()
-        scene_number = 1
-        for _ in xrange(100): #no more than 100 scenes
-            scene_number += 1
-            actual = sw.build_scene(scene_number = scene_number)
-            if actual is None:
-                return
-            expected = Scene(scene_number = scene_number)
-            self.assertEquals(expected, actual)
-            self.assertTrue(len(actual.stage_directions) > 1)
-            scene_number += 1
-        self.fail("Should not have more scenes")
+    def test_building_scene2_returns_correct_scene_number(self):
+        scene = self.sw.build_scene(2)
+        self.assertEquals(2, scene.scene_number)
         
-        
+    def test_can_point_do_different_scenes(self):
+        scene = self.sw.build_scene(1)
+        self.assertEquals("Testing is important", scene.stage_directions[0].character.text)
+    
+    def test_building_scene_that_does_exist_raises_exception(self):
+        self.assertRaises(NoMoreScenesException, self.sw.build_scene, 3)
     
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
